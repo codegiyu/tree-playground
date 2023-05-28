@@ -20,7 +20,7 @@ export const createCurrentTreeSlice: StateCreator<CurrentTreeSlice> = (set, get)
     ),
     resetSessionStorage: () => {
         sessionStorage.removeItem("app-storage");
-        window.location.reload;
+        window.location.reload();
     },
     addTreeNode: (value: string, parentID: number | null = null, position: "left" | "right" = "left") => {
         let tree: Tree | null = get().tree
