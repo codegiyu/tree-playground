@@ -54,8 +54,8 @@ export default function Playground() {
     }, [changesToTree])
 
     return (
-        <div className="w-full h-screen bg-white flex">
-            <section className="w-[400px] flex-none h-full px-4 py-14 bg-slate-500 border-r border-black">
+        <main className="w-full h-screen bg-white flex">
+            <section className="w-[300px] flex-none h-full px-4 py-14 bg-slate-500 border-r border-black">
                 <AddNodeForm />
             </section>
             <section className="flex-1 h-full flex flex-col items-center bg-slate-200 pt-11 px-20 overflow-y-scroll">
@@ -68,7 +68,7 @@ export default function Playground() {
                 </div>
 
                 <div className="playground-wrap w-[900px] h-[500px] p-6 bg-white border border-black">
-                    <div className="playground-display-wrap w-full h-full overflow-scroll">
+                    <div className="playground-display-wrap w-full h-full overflow-auto">
                         <div ref={playgroundRef} className="playground-display py-3" style={{width: `${playgroundWidth}%`, height: `${playgroundHeight}%`}}>
                             {treeLevels.length !== 0 ? (
                                 <div className="w-full grid gap-10">
@@ -83,6 +83,6 @@ export default function Playground() {
                     </div>
                 </div>
             </section>
-        </div>
+        </main>
     )
 }
