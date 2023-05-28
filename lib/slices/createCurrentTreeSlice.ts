@@ -5,6 +5,7 @@ export interface CurrentTreeSlice {
     tree: Tree | null;
     changesToTree: number;
     changeCurrentTree: (tree: Tree) => void;
+    resetSessionStorage: () => void;
     addTreeNode: (value: string, parentID: number | null, position: "left" | "right") => void;
     updateTreeNode: (nodeID: number, newValue: string) => void;
 }
@@ -17,6 +18,10 @@ export const createCurrentTreeSlice: StateCreator<CurrentTreeSlice> = (set, get)
     changeCurrentTree: (tree: Tree) => set(
         { tree }
     ),
+    resetSessionStorage: () => {
+        sessionStorage.removeItem("app-storage");
+        window.location.reload;
+    },
     addTreeNode: (value: string, parentID: number | null = null, position: "left" | "right" = "left") => {
         let tree: Tree | null = get().tree
         let num = get().changesToTree + 1
@@ -24,11 +29,13 @@ export const createCurrentTreeSlice: StateCreator<CurrentTreeSlice> = (set, get)
         if (tree instanceof Tree !== true) {
             // console.log("I ran")
             // Object.setPrototypeOf(tree, Tree)
-
-            set({ tree: emptyTree, changesToTree: num })
+            get().resetSessionStorage();
+            return;
+            // set({ tree: emptyTree, changesToTree: num })
         }
         console.log(tree instanceof Tree)
-        const newTree = tree?.addNode(value,parentID,position)
+        let newTree = tree?.addNode(value,parentID,position) 
+        newTree = newTree ? newTree : tree
         console.log(newTree, newTree instanceof Tree)
         set({ tree: newTree, changesToTree: num })
     },
